@@ -1,0 +1,16 @@
+{
+    "name": "Zealot Counter",
+    "version": "0.1",
+    "manifest_version": 2,
+    "description": "Zealot counter",
+    "content_scripts": [
+      {
+        "matches": ["*://*.shiiyu.moe/*"],
+        "js": ["content.js"]
+      }
+    ],
+    "browser_action":{
+      "default_popup": "popup.html",
+      "default_title": "Zealot counter"
+    }
+  }
