@@ -1,30 +1,28 @@
-let ZealotCount = undefined;
-const ZealotCountdiv = document.createElement('div')
-ZealotCountdiv.textContent = ZealotCount
-document.body.appendChild(ZealotCountdiv)
+const counter = new kill_counter(document.querySelector("#ZealotCount"), "Zealots")
 
 document.addEventListener('DOMContentLoaded', function(){
     process()
         
 
     document.getElementById('setCounterStart').addEventListener('click', function (){
-        setCounterStart(ZealotCount)
+        // setCounterStart(ZealotCount)
+        counter.resetStart()
     }, false)
     
 }, false)
 
-function setCounterStart(value) {
-    localStorage.setItem("counterStart", value); 
-}
+// function setCounterStart(value) {
+//     localStorage.setItem("counterStart", value); 
+// }
+// 
 
-function setCount(res){
-    ZealotCount = parseInt(res.count)
-    ZealotCountdiv.innerHTML = "";
-    ZealotCountdiv.appendChild(document.createTextNode(`Zealots killed: ${ZealotCount} `));
-    ZealotCountdiv.appendChild(document.createElement('br'));
-    ZealotCountdiv.appendChild(document.createTextNode(`in this sessin: ${ZealotCount - parseInt(localStorage.getItem("counterStart"))}`));
-
-}
+// function setCount(res){
+//     ZealotCount = parseInt(res.count)
+//     ZealotCountdiv.innerHTML = "";
+//     ZealotCountdiv.appendChild(document.createTextNode(`Zealots killed: ${ZealotCount} `));
+//     ZealotCountdiv.appendChild(document.createElement('br'));
+//     ZealotCountdiv.appendChild(document.createTextNode(`in this sessin: ${ZealotCount - parseInt(localStorage.getItem("counterStart"))}`));
+// }
 
 async function process(){
 
@@ -35,13 +33,13 @@ async function process(){
     }
 
     let querry = `${api_link}/player${strinfyParams(params_)}`;
-    console.log(querry)
+    // console.log(querry)
 
     await fetch(querry)
         .then(result => result.json())
         .then(({ player }) => {
             // Log the player's username
-            console.log(player.displayname)
+            // console.log(player.displayname)
 
             for (const key in player.stats.SkyBlock.profiles) {
                 if(player.stats.SkyBlock.profiles[key].cute_name == "Grapes"){
@@ -55,25 +53,24 @@ async function process(){
     let account = undefined
     
     querry = `${api_link}/skyblock/profile${strinfyParams(params_)}`;
-    console.log(querry)
+    // console.log(querry)
 
     killCounter(querry, params_.uuid)    
 }
 
 async function killCounter(querry, uuid) {
     let start = await getCount(querry, uuid);
-    printCurrent(start, start)
-    setCounterStart(start)
+    counter.setValue(start)
 
     setInterval(async function(){
-        printCurrent(start, await getCount(querry, uuid))
+        counter.setValue(await getCount(querry, uuid))
     }, 5000)
 }
 
-function printCurrent(start, current){
-    // console.log(`${start} | ${start-current}`)
-    setCount({count: current})
-}
+// function printCurrent(start, current){
+//     // console.log(`${start} | ${start-current}`)
+//     setCount({count: current})
+// }
 
 async function getCount(querry, uuid){
     let account = {}

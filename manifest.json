@@ -1,6 +1,6 @@
 {
     "name": "Zealot Counter",
-    "version": "0.2",
+    "version": "0.3",
     "manifest_version": 2,
     "description": "Zealot counter",
     "browser_action":{
