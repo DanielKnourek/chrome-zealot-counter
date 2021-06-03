@@ -3,26 +3,11 @@ const counter = new kill_counter(document.querySelector("#ZealotCount"), "Zealot
 document.addEventListener('DOMContentLoaded', function(){
     process()
         
-
     document.getElementById('setCounterStart').addEventListener('click', function (){
-        // setCounterStart(ZealotCount)
         counter.resetStart()
     }, false)
     
 }, false)
-
-// function setCounterStart(value) {
-//     localStorage.setItem("counterStart", value); 
-// }
-// 
-
-// function setCount(res){
-//     ZealotCount = parseInt(res.count)
-//     ZealotCountdiv.innerHTML = "";
-//     ZealotCountdiv.appendChild(document.createTextNode(`Zealots killed: ${ZealotCount} `));
-//     ZealotCountdiv.appendChild(document.createElement('br'));
-//     ZealotCountdiv.appendChild(document.createTextNode(`in this sessin: ${ZealotCount - parseInt(localStorage.getItem("counterStart"))}`));
-// }
 
 async function process(){
 
@@ -33,7 +18,6 @@ async function process(){
     }
 
     let querry = `${api_link}/player${strinfyParams(params_)}`;
-    // console.log(querry)
 
     await fetch(querry)
         .then(result => result.json())
@@ -48,12 +32,10 @@ async function process(){
                 }
             }
         })
-    // console.log(params_.profile)
     
     let account = undefined
     
     querry = `${api_link}/skyblock/profile${strinfyParams(params_)}`;
-    // console.log(querry)
 
     killCounter(querry, params_.uuid)    
 }
@@ -67,11 +49,6 @@ async function killCounter(querry, uuid) {
     }, 5000)
 }
 
-// function printCurrent(start, current){
-//     // console.log(`${start} | ${start-current}`)
-//     setCount({count: current})
-// }
-
 async function getCount(querry, uuid){
     let account = {}
     await fetch(querry)
@@ -80,7 +57,6 @@ async function getCount(querry, uuid){
         account = profile.members[uuid]        
     })
 
-    // console.log(account.stats.kills_zealot_enderman)
     return account.stats.kills_zealot_enderman;
 }
 
